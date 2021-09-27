@@ -14,17 +14,13 @@ jobs:
         with:
           submodules: recursive
         
-      - name: Test step
-        run: |
-          Write-Output "Test"
-          Get-ChildItem -Path "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\Tools"
-
       - name: Setup VS2019
         shell: cmd
         run: |
           call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\Tools\VsDevCmd.bat" -arch=x64
 
       - name: Download and Extract Skia
+        if: false
         run: |
           Write-Output "Get Location"
           Get-Location
@@ -36,6 +32,22 @@ jobs:
           Expand-Archive -Path skia\Skia-Windows-Release-x64.zip
           Write-Output "Get file listing"
           Get-ChildItem -Path skia
+
+      - name: Download and Extract Skia
+        shell: bash
+        run: |
+          echo "Get Location"
+          pwd
+          echo "New Directory"
+          mkdir skia
+          echo "Download Zip"
+          cd skia
+          wget https://github.com/aseprite/skia/releases/latest/download/Skia-Windows-Release-x64.zip
+          echo "Expand Archive"
+          unzip Skia-Windows-Release-x64.zip
+          echo "List Files"
+          ls -alh
+          cd ..
 
       - name: Set up CMake and Ninja
         uses: lukka/get-cmake@latest
