@@ -19,19 +19,27 @@ jobs:
           Write-Output "Test"
           Get-ChildItem -Path "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\Tools"
 
-        #- name: Setup VS2019
-        #shell: cmd
-        #run: |
-        #  call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools\VsDevCmd.bat" -arch=x64
+        - name: Setup VS2019
+        shell: cmd
+        run: |
+          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\Tools\VsDevCmd.bat" -arch=x64
+
+      - name: Download and Extract Skia
+        run: |
+          Get-Location
+          New-Item -ItemType Directory -Path skia
+          Invoke-WebRequest -Uri https://github.com/aseprite/skia/releases/latest/download/Skia-Windows-Release-x64.zip -OutFile skia\Skia-Windows-Release-x64.zip
+          Expand-Archive -Path skia\Skia-Windows-Release-x64.zip
+          Get-ChildItem -Path skia
 
       - name: Set up CMake and Ninja
         uses: lukka/get-cmake@latest
 
       - name: Make
         run: |
-          New-Item -ItemType Directory build
+          New-Item -ItemType Directory -Path build
           Set-Location -Path build
-          cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DLAF_BACKEND=skia -DSKIA_DIR=C:\deps\skia -DSKIA_LIBRARY_DIR=C:\deps\skia\out\Release-x64 -DSKIA_LIBRARY=C:\deps\skia\out\Release-x64\skia.lib -G Ninja ..
+          cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DLAF_BACKEND=skia -DSKIA_DIR=..\skia -DSKIA_LIBRARY_DIR=..\skia\out\Release-x64 -DSKIA_LIBRARY=..\skia\out\Release-x64\skia.lib -G Ninja ..
           ninja aseprite
       
       - name: Upload artifact
