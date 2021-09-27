@@ -12,6 +12,11 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
         
+      - name: Test step
+        shell: bash
+        run: |
+          find / -name "*VsDevCmd*"
+
       - name: Setup VS2019
         shell: cmd
         run: |
