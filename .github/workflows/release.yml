@@ -1,0 +1,32 @@
+---
+name: Release
+
+on:
+  workflow_dispatch:
+  
+jobs:
+  setup:
+    name: Setup
+    runs-on: windows-2019
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        
+      - name: Setup VS2019
+        shell: cmd
+        run: |
+          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools\VsDevCmd.bat" -arch=x64
+
+      - name: Make
+        run: |
+          New-Item -ItemType Directory build
+          Set-Location -Path build
+          cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DLAF_BACKEND=skia -DSKIA_DIR=C:\deps\skia -DSKIA_LIBRARY_DIR=C:\deps\skia\out\Release-x64 -DSKIA_LIBRARY=C:\deps\skia\out\Release-x64\skia.lib -G Ninja ..
+          ninja aseprite
+      
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: Aseprite-Windows.exe
+          path: build/bin/aseprite.exe
+          if-no-files-found: error
