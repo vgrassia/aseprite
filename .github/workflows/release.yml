@@ -13,14 +13,14 @@ jobs:
         uses: actions/checkout@v2
         
       - name: Test step
-        shell: bash
         run: |
-          find / -name "*VsDevCmd*"
+          Write-Output "Test"
+        Get-ChildItem -Path "C:\Program Files (x86)\Microsoft Visual Studio"
 
-      - name: Setup VS2019
-        shell: cmd
-        run: |
-          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools\VsDevCmd.bat" -arch=x64
+        #- name: Setup VS2019
+        #shell: cmd
+        #run: |
+        #  call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools\VsDevCmd.bat" -arch=x64
 
       - name: Make
         run: |
