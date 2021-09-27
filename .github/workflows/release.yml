@@ -12,14 +12,12 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
         with:
-          submodules: true
+          submodules: recursive
         
       - name: Test step
         run: |
           Write-Output "Test"
-          Get-ChildItem -Path "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7"
-          Write-Output "LAF"
-          Get-ChildItem -Path ".\laf"
+          Get-ChildItem -Path "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\Tools"
 
         #- name: Setup VS2019
         #shell: cmd
