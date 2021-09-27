@@ -42,7 +42,7 @@ jobs:
           mkdir skia
           echo "Download Zip"
           cd skia
-          curl https://github.com/aseprite/skia/releases/latest/download/Skia-Windows-Release-x64.zip
+          curl -L https://github.com/aseprite/skia/releases/download/m81-b607b32047/Skia-Windows-Release-x64.zip -o Skia-Windows-Release-x64.zip
           echo "Expand Archive"
           unzip Skia-Windows-Release-x64.zip
           echo "List Files"
