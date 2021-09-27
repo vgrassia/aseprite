@@ -20,20 +20,6 @@ jobs:
           call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\Tools\VsDevCmd.bat" -arch=x64
 
       - name: Download and Extract Skia
-        if: false
-        run: |
-          Write-Output "Get Location"
-          Get-Location
-          Write-Output "New Directory"
-          New-Item -ItemType Directory -Path skia
-          Write-Output "Download Zip"
-          Invoke-WebRequest -Uri https://github.com/aseprite/skia/releases/latest/download/Skia-Windows-Release-x64.zip -OutFile skia\Skia-Windows-Release-x64.zip
-          Write-Output "Expand Archive"
-          Expand-Archive -Path skia\Skia-Windows-Release-x64.zip
-          Write-Output "Get file listing"
-          Get-ChildItem -Path skia
-
-      - name: Download and Extract Skia
         shell: bash
         run: |
           echo "Get Location"
@@ -53,7 +39,6 @@ jobs:
         uses: lukka/get-cmake@latest
 
       - name: Make
-        if: false
         run: |
           New-Item -ItemType Directory -Path build
           Set-Location -Path build
