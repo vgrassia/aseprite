@@ -15,7 +15,7 @@ jobs:
       - name: Test step
         run: |
           Write-Output "Test"
-          Get-ChildItem -Path "C:\Program Files (x86)\Microsoft Visual Studio"
+          Get-ChildItem -Path "C:\Program Files (x86)\Microsoft Visual Studio\2019"
 
         #- name: Setup VS2019
         #shell: cmd
