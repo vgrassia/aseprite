@@ -47,7 +47,7 @@ jobs:
         run: |
           New-Item -ItemType Directory -Path build
           Set-Location -Path build
-          cmake -DCMAKE_IGNORE_PATH=C:/ProgramData/chocolatey/bin/ -DCMAKE_BUILD_TYPE=RelWithDebInfo -DLAF_BACKEND=skia -DSKIA_DIR="$($env:GITHUB_WORKSPACE)\skia" -DSKIA_LIBRARY_DIR="$($env:GITHUB_WORKSPACE)\skia\out\Release-x64" -DSKIA_LIBRARY="$($env:GITHUB_WORKSPACE)\skia\out\Release-x64\skia.lib" -G Ninja ..
+          cmake -DCMAKE_IGNORE_PATH=C:/Strawberry/c/bin/ -DCMAKE_IGNORE_PATH=C:/ProgramData/chocolatey/bin/ -DCMAKE_BUILD_TYPE=RelWithDebInfo -DLAF_BACKEND=skia -DSKIA_DIR="$($env:GITHUB_WORKSPACE)\skia" -DSKIA_LIBRARY_DIR="$($env:GITHUB_WORKSPACE)\skia\out\Release-x64" -DSKIA_LIBRARY="$($env:GITHUB_WORKSPACE)\skia\out\Release-x64\skia.lib" -G Ninja ..
           ninja aseprite
      
       - name: Output logs
