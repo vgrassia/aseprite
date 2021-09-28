@@ -35,13 +35,16 @@ jobs:
           ls -alh
           cd ..
 
-      - name: Set up CMake and Ninja
-        uses: lukka/get-cmake@latest
+      #- name: Set up CMake and Ninja
+      #uses: lukka/get-cmake@latest
 
       - name: Vars
         run: |
           Write-Output "HOME: $($HOME)"
           Write-Output "WORKSPACE: $($env:GITHUB_WORKSPACE)"
+
+      - name: Set up Visual C++
+        uses: ilammy/msvc-dev-cmd@v1
 
       - name: Make
         shell: cmd
