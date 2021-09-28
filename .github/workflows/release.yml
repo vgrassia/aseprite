@@ -40,11 +40,14 @@ jobs:
           cmake -DCMAKE_IGNORE_PATH="C:/Strawberry/c/bin;C:/ProgramData/chocolatey/bin" -DCMAKE_BUILD_TYPE=RelWithDebInfo -DLAF_BACKEND=skia -DSKIA_DIR="%GITHUB_WORKSPACE%\skia" -DSKIA_LIBRARY_DIR="%GITHUB_WORKSPACE%\skia\out\Release-x64" -DSKIA_LIBRARY="%GITHUB_WORKSPACE%\skia\out\Release-x64\skia.lib" -G Ninja ..
           ninja aseprite
      
+      - name: Prepare upload
+        shell: bash
+        run: |
+          mv data/ build/bin/
+
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
-          name: Aseprite-Windows.exe
-          path: |
-            build/bin/aseprite.exe
-            data/
+          name: Aseprite-Windows-x64
+          path: build/bin/
           if-no-files-found: error
