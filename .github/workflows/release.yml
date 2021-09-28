@@ -22,26 +22,11 @@ jobs:
       - name: Download and Extract Skia
         shell: bash
         run: |
-          echo "Get Location"
-          pwd
-          echo "New Directory"
           mkdir skia
-          echo "Download Zip"
           cd skia
           curl -L https://github.com/aseprite/skia/releases/download/m81-b607b32047/Skia-Windows-Release-x64.zip -o Skia-Windows-Release-x64.zip
-          echo "Expand Archive"
           unzip Skia-Windows-Release-x64.zip
-          echo "List Files"
-          ls -alh
           cd ..
-
-      #- name: Set up CMake and Ninja
-      #uses: lukka/get-cmake@latest
-
-      - name: Vars
-        run: |
-          Write-Output "HOME: $($HOME)"
-          Write-Output "WORKSPACE: $($env:GITHUB_WORKSPACE)"
 
       - name: Set up Visual C++
         uses: ilammy/msvc-dev-cmd@v1
@@ -55,17 +40,11 @@ jobs:
           cmake -DCMAKE_IGNORE_PATH="C:/Strawberry/c/bin;C:/ProgramData/chocolatey/bin" -DCMAKE_BUILD_TYPE=RelWithDebInfo -DLAF_BACKEND=skia -DSKIA_DIR="%GITHUB_WORKSPACE%\skia" -DSKIA_LIBRARY_DIR="%GITHUB_WORKSPACE%\skia\out\Release-x64" -DSKIA_LIBRARY="%GITHUB_WORKSPACE%\skia\out\Release-x64\skia.lib" -G Ninja ..
           ninja aseprite
      
-      - name: Output logs
-        shell: bash
-        run: |
-          echo "CMakeOutput.log"
-          cat build/CMakeFiles/CMakeOutput.log
-          echo "CMakeError.log"
-          cat build/CMakeFiles/CMakeError.log 
-
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
           name: Aseprite-Windows.exe
-          path: build/bin/aseprite.exe
+          path: |
+            build/bin/aseprite.exe
+            data/
           if-no-files-found: error
