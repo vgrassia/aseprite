@@ -43,7 +43,7 @@ jobs:
       - name: Prepare upload
         shell: bash
         run: |
-          mv data/ build/bin/
+          mv data/ build/bin/data
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
